@@ -34,9 +34,12 @@ public class HoraExtraController {
         return ResponseEntity.ok(horaExtra);
     }
 
-    @PostMapping
-    public ResponseEntity<HoraExtra> create(@RequestBody HoraExtra horaExtra) {
-        HoraExtra nuevaHoraExtra = horaExtraService.guardarHoraExtra(horaExtra);
-        return ResponseEntity.ok(nuevaHoraExtra);
+    @PostMapping("/file")
+    public ResponseEntity<String> createFromFile() {
+        boolean creado = horaExtraService.guardarDelArchivo();
+        if(creado){
+            return ResponseEntity.ok("Se crearon las horas extras");
+        }
+        return ResponseEntity.badRequest().body("No se pudieron crear las horas extras");
     }
 }
