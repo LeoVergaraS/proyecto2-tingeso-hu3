@@ -25,6 +25,12 @@ public class HoraExtraController {
         return ResponseEntity.ok(horasExtras);
     }
 
+    @GetMapping("/verificar/{mes}/{anio}/{rut}")
+    public ResponseEntity<Double> verificarSiTieneHorasExtras(@PathVariable("mes") int mes, @PathVariable("anio") int anio, @PathVariable("rut") String rut){
+        double horasExtras = horaExtraService.verificarSiTieneHorasExtras(mes, anio, rut);
+        return ResponseEntity.ok(horasExtras);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<HoraExtra> getById(@PathVariable("id") Long id) {
         HoraExtra horaExtra = horaExtraService.obtenerHoraExtra(id);

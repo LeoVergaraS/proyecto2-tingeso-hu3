@@ -34,6 +34,17 @@ public class HoraExtraService {
         return calculo;
     }
 
+    public double verificarSiTieneHorasExtras(int mes, int anio, String rut){
+        HoraExtra horaExtra = horaExtraRepository.findHoraExtraByRutFecha(mes, anio, rut);
+        if(horaExtra == null){
+            return 0;
+        }
+        if(horaExtra.getAutorizado() == 1){
+            return horaExtra.getCantidadHorasExtras();
+        }
+        return 0;
+    }
+
     public boolean guardarDelArchivo() {
         IngresoSalida[] horasExtras = restTemplate.getForObject("http://localhost:8001/ingresosSalidas/salidas", IngresoSalida[].class); 
         if(horasExtras != null) {
