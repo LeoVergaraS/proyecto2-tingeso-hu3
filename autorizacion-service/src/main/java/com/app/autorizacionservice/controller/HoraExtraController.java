@@ -31,6 +31,15 @@ public class HoraExtraController {
         return ResponseEntity.ok(horasExtras);
     }
 
+    @GetMapping("/{rut}/{mes}/{anio}")
+    public ResponseEntity<HoraExtra> getByEmpleadoFecha(@PathVariable("mes") int mes, @PathVariable("anio") int anio, @PathVariable("rut") String rut){
+        HoraExtra horaExtra = horaExtraService.obtenerPorEmpleadoFecha(mes, anio, rut);
+        if(horaExtra == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(horaExtra);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<HoraExtra> getById(@PathVariable("id") Long id) {
         HoraExtra horaExtra = horaExtraService.obtenerHoraExtra(id);
@@ -38,6 +47,12 @@ public class HoraExtraController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(horaExtra);
+    }
+
+    @PostMapping()
+    public ResponseEntity<HoraExtra> create(@RequestBody HoraExtra horaExtra) {
+        HoraExtra horaExtraCreada = horaExtraService.crearHoraExtra(horaExtra);
+        return ResponseEntity.ok(horaExtraCreada);
     }
 
     @PostMapping("/file")

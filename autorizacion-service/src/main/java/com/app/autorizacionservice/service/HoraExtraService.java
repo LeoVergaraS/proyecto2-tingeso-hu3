@@ -25,6 +25,15 @@ public class HoraExtraService {
         return horaExtraRepository.findById(id).orElse(null);
     }
 
+    public HoraExtra crearHoraExtra(HoraExtra horaExtra) {
+        HoraExtra horaExtraCreada = horaExtraRepository.save(horaExtra);
+        return horaExtraCreada;
+    }
+
+    public HoraExtra obtenerPorEmpleadoFecha(int mes, int anio, String rut){
+        return horaExtraRepository.findHoraExtraByRutFecha(mes, anio, rut);
+    }
+
     private double calculoHorasExtras(IngresoSalida ingresoSalida){
         String[] tiempoSeparado = ingresoSalida.getHora().toString().split(":");
         int horas = Integer.valueOf(tiempoSeparado[0]);
